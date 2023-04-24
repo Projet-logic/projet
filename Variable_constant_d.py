@@ -26,9 +26,16 @@ class Infix:
     
 class variable:
     def __init__(self,name):
+        if(name.__class__!=str):
+            raise ValueError("the name of variable should be string");
         self.name=name
     def __affect(self,Value):
         self.Value=Value
     affect=Infix(lambda x,y : x.__affect(y))
+    def __str__(self):
+        if(hasattr(self,'Value')):
+            return self.Value.name
+        else:
+            return self.name
     
     
