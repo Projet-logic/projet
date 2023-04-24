@@ -32,4 +32,14 @@ class formula :
             res._set_right(f)
             res._set_connector(connector.AND)
             return res
+        def __str__(self):
+            if(self._left==None):
+                if(self._right==None):
+                    return ""
+                else:
+                    return f"({self._right.__str__()})"
+            elif(self._right==None):
+                return f"({self._left.__str__()})"
             
+            return f"({self._left.__str__()}) {self._connector.name} ({self._right.__str__()})\n"
+        
