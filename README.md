@@ -5,10 +5,11 @@
 - The Hashiwokakero game requires players to think logically and develop problem-solving skills. It can be a fun and challenging game for puzzle lovers.
 
 # Variable and constant definition :
-- the constants are T for True and F for False and they should be imported like  "from Vaiable_constant_d.constant import T,F"
+- Variable constant definition:
+    - the constants are T for True and F for False and they should be imported like  "from Vaiable_constant_d.constant import T,F"
     
-- Variable is an object which has a attribute called name and in the case of assignment it will have anouther attrribute called value
-- Class Variable has a methode called "affect" which should be imported with "from Vaiable_constant_d.Variable import affect" or affectet to a local          - Variables with 'from Variable_constant_d import Variable      |    affect = Variable.affect'  and the usage is like  " A affect T "
+    - Variable is an object which has a attribute called name and in the case of assignment it will have anouther attrribute called value
+    - Class Variable has a methode called "affect" which should be imported with "from Vaiable_constant_d.Variable import affect" or affectet to a local          - Variables with 'from Variable_constant_d import Variable      |    affect = Variable.affect'  and the usage is like  " A affect T "
 - Connectors definition:
     - as we are attempting to create the clauses so we are going to need only 'AND' and 'OR', you can import these logical connectors by 
     - "from connector_d.connector import AND,OR"
