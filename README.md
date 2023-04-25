@@ -4,6 +4,9 @@
 - Each island in the grid has a number of bridges attached to it, and bridges can only be attached in horizontal or vertical directions. No bridge is allowed to cross and a line cannot cross another bridge.
 - The Hashiwokakero game requires players to think logically and develop problem-solving skills. It can be a fun and challenging game for puzzle lovers.
 
+![image](https://user-images.githubusercontent.com/78409997/234302292-ab4b6b0c-988f-47c8-80dc-1861a78916af.png)
+
+
 # Variable and constant definition :
 - Variable constant definition:
     - the constants are T for True and F for False and they should be imported like  "from Vaiable_constant_d.constant import T,F"
