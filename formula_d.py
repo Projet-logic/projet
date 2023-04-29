@@ -25,6 +25,8 @@ class Infix:
     def __or__(self,other):
         return self.function(other)
     
+    
+
         
 class formula :
         affect=Infix(lambda x,y : x.__affect(y))
@@ -34,7 +36,7 @@ class formula :
                 self.name=f 
                 self.is_variable=True
             elif isinstance(f,formula):
-                self.is_variable=0
+                self.is_variable=False
                 self._connector=connector
                 
         def add_subf(self,elem,index,connector=AND):
@@ -47,7 +49,7 @@ class formula :
                 self._table.insert(index,elem)
                 
         def remove_subf(self,elem):
-            if(self.__class__==variable):
+            if(self.is_variable):
                 raise ValueError(f"{self} is a variable and has no attribute table\n")
             res=self._table.pop(self._table.index(elem))
             return res
@@ -113,8 +115,30 @@ class formula :
         def dev(self):
             if(self.is_variable):
                 pass
-            elif()
-        
+            elif(self.get_connector()==OR):
+                #input(f"start or{self}")
+                for f in self._table:
+                    f.dev()
+                for f in list(self._table):
+                    if(not f.is_variable and f.get_connector()==AND):
+                        self.remove_subf(f)
+                        res=formula(formula(f.get_subf(0),connector=OR) + formula(self,connector=OR),connector=AND)
+                        for fs in list(f._table)[1:]:
+                            res=res*(fs+self)
+                        self._table=list(res._table)
+                        self._connector=res._connector
+                        self.is_variable=res.is_variable
+                        self.dev()
+                        self.refr()
+                        #input(f"end or{self}")
+                        break
+            elif(self.get_connector()==AND):
+                #input(f"start and{self}")
+                for f in self._table:
+                    f.dev()
+                    #print(f)
+                self.refr()
+                #input(f"end and{self}")
         
         def __str__(self):
             if(self.is_variable):
@@ -123,17 +147,18 @@ class formula :
                 else :
                     return f"{self.name}"
             else:
-                if(len(self._table)>1):
+                if(len(self._table)>=1):
                     res='('
                     for i in self._table:
-                        res+=i.__str__()
-                        res+=self._connector.value
+                        if(i!=None):
+                            res+=i.__str__()
+                            res+=self._connector.value
                     res=res[:-1]
                     res+=')'
                     return res
                 elif(self._connector==NOT):
                     return f"(-{self._table[0].__str()})"
-
-
+                else:
+                    return ""
 
             
