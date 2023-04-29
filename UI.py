@@ -1,87 +1,115 @@
-import pygame
-from pygame.locals import *
-from formula_d import *
-from connector_d import *
-from Variable_constant_d import *
 
-# pygame initialization
-pygame.init()
 
-# monitor settings and game parameters
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Hashiwokakero")
-font = pygame.font.SysFont("arial", 24)
-clock = pygame.time.Clock()
 
-# load images for the game
-img_background = pygame.image.load("background.png")            #we gonna find a background on GG and add it
-img_island = pygame.image.load("island.png")
-img_bridge = pygame.image.load("bridge.png")
 
-# function of game grid drawing
-def draw_grid():
-    for x in range(50, width, 50):
-        pygame.draw.line(screen, GRAY, (x, 50), (x, height-50))
-    for y in range(50, height, 50):
-        pygame.draw.line(screen, GRAY, (50, y), (width-50, y))
-
-# island (cercle) drawing function
-def draw_island(node):
-    screen.blit(img_island, (node.position[0]-25, node.position[1]-25))    
-    text = font.render(str(node.weight), True, BLACK)
-    screen.blit(text, (node.position[0]-10, node.position[1]-10))
-
-# bridge drawing function
-def draw_bridge(bridge):
-    x1 = bridge.node1.position[0]
-    y1 = bridge.node1.position[1]
-    x2 = bridge.node2.position[0]
-    y2 = bridge.node2.position[1]
+def exist_in_list(l,i,j):
+    for circle in l:
+        if(circle[0]==i and circle[1]==j):
+            return circle[2]
+    else:
+        return False
     
-    if x1 == x2:
-        if y1 < y2:
-            y1 += 25
-            y2 -= 25
-        else:
-            y1 -= 25
-            y2 += 25
-        screen.blit(pygame.transform.rotate(img_bridge, 90), (x1-25, y1))
-    elif y1 == y2:
-        if x1 < x2:
-            x1 += 25
-            x2 -= 25
-        else:
-            x1 -= 25
-            x2 += 25
-        screen.blit(img_bridge, (x1, y1-25))
-
-# game state update function
-def update_game():
-    screen.blit(img_background, (0, 0))
-    draw_grid()
-
-    for node in nodes:
-        draw_island(node)
-
-    for bridge in bridges:
-        draw_bridge(bridge)
-
-    pygame.display.update()
-
-# game event handler function
-def game_loop():
-    running = True
-    while running:
-        clock.tick(30)
-
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                running = False
-
-        update_game()
-
-    pygame.quit()
-
-if __name__ == "__main__":
-    game_loop()
+def print_instance(list_of_c,n,m):
+    print(" ",end="")
+    for i in range(m):
+        print("---",end="")
+    print(" ",end="")
+    print()
+    for j in range(n):
+        print('|',end="")
+        index=0
+        j2=2
+        while j2<(m*3)+1:
+            index+=(j2%3 == 1)
+            
+            n=exist_in_list(list_of_c, j, index)
+            if(n):
+                print(f'({n})',end="")
+                j2+=3
+            else:
+                print(' ',end="")
+                j2+=1
+        print('|')
+    print(" ",end="")
+    for i in range(m):
+        print("---",end="")
+    print(" ",end="")
+    print()
+    
+def init_game():
+    try:
+        n=int(input("enter width of grid"))
+    except:
+        print("you should have entered a number")
+        return 0
+    while(not(1<n<=10)):
+        try:
+            n=int(input("width should be between 1 and 10 enter width of grid"))
+        except:
+            print("you should have entered a number")
+            return 0
+        
+    try:
+        m=int(input("enter length of grid"))
+    except:
+        print("you should have entered a number")
+        return 0
+    while(not(1<n<=10)):
+        try:
+            m=int(input("length should be between 1 and 10 enter width of grid"))
+        except:
+            print("you should have entered a number")
+            return 0
+    
+    res=input("do you want to add a circle?(y/n)")
+    while(res!='y' and res!='n'):
+        res=input("do you want to add a circle?(y/n)")
+    l=list()
+    while (res!='n'):
+        
+        try:
+            i=int(input("insert row number"))
+        except:
+            print("you should have entered a number")
+            return 0
+        
+        while(not(1<=i<=n)):
+            try:
+                i=int(input(f"row should be between 1 and {n} enter width of grid"))
+            except:
+                print("you should have entered a number")
+                return 0
+        try:
+            j=int(input("insert colunm number"))
+        except:
+            print("you should have entered a number")
+            return 0
+        
+        while(not(1<=i<=m)):
+            try:
+                j=int(input(f"colunm should be between 1 and {m} enter width of grid"))
+            except:
+                print("you should have entered a number")
+                return 0
+        try:
+            bn=int(input("insert bridg limited number"))
+        except:
+            print("you should have entered a number")
+            return 0
+        
+        while(not(1<=i<=8)):
+            try:
+                bn=int(input("bridg limited number should be between 1 and 8 enter width of grid"))
+            except:
+                print("you should have entered a number")
+                return 0
+        
+        l.append((i,j,bn))
+        print_instance(l, n, m)
+        res=input("do you want to add a circle?(y/n)")
+        while(res!='y' and res!='n'):
+            res=input("do you want to add a circle?(y/n)")
+    print("by ;)")
+    return l
+    
+        
