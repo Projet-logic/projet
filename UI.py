@@ -62,7 +62,7 @@ def init_game():
     except:
         print("you should have entered a number")
         return 0
-    while(not(1<n<=10)):
+    while(not(1<m<=10)):
         try:
             m=int(input("length should be between 1 and 10 enter width of grid"))
         except:
