@@ -93,7 +93,7 @@ def init_game():
             print("you should have entered a number")
             return 0
         
-        while(not(1<=i<=m)):
+        while(not(1<=j<=m)):
             try:
                 j=int(input(f"colunm should be between 1 and {m} enter width of grid"))
             except:
