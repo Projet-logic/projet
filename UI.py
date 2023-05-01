@@ -73,7 +73,7 @@ def init_game():
     while(res!='y' and res!='n'):
         res=input("do you want to add a circle?(y/n)")
     l=list()
-    while (res!='n'):
+    while (res!='n' and len(l)<9):
         
         try:
             i=int(input("insert row number"))
