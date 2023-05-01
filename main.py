@@ -44,6 +44,7 @@ def main():
             print(f"formula = {f}")
             f.dev()
             print(f"development = {f}")
+            save_dimacs(f, "res.txt")
             return 1
         except:
             print("you have some problem lets restart")
