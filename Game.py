@@ -2,7 +2,14 @@
 """
 Created on Sat Apr 29 06:02:56 2023
 
-@author: moham & Tang Khac Vinh
+@author: moham
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 28 01:09:20 2023
+
+@author: Tang Khac Vinh
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
@@ -17,6 +24,10 @@ class Game:
     
     def __init__(self):
         l,m,n=init_game()
+        #l=[(1,1,4),(1,3,5),(1,6,2),(4,1,4),(4,3,8),(4,6,5),(6,6,2),(7,1,2),\
+           #(7,3,4)]
+        #m=8
+        #n=8
         self._list_islands=l
         self._islands=[[0 for j in range(m)] for i in range(n)]
         for c in l:
