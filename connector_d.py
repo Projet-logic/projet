@@ -8,8 +8,8 @@ FILE DESCRIPTION:
        logical connectors type definition
 """
 from enum import Enum
-
 class connector(Enum):
         AND = '*'
         OR  = '+'
+        NOT = '-'
         
