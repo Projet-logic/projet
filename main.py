@@ -44,6 +44,7 @@ def main():
             print(f"formula = {f}")
             f.dev()
             print(f"development = {f}")
+            return 1
         except:
             print("you have some problem lets restart")
     
