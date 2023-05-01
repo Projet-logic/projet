@@ -1,5 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon May  1 16:12:46 2023
 
-
+@author: moham
+"""
+from algo import *
+from Game import Game
+from formula_d import formula,AND,OR
 
 def save_dimacs(formule, filename):
     """Saves the clauses provided in the first argument to the file provided in the
@@ -25,3 +32,20 @@ def save_dimacs(formule, filename):
         # Write each clause
         for clause in formule:
             file.write(" ".join(str(v) for v in clause) + " 0\n")
+    
+def main():
+    while True:
+        try:
+            g=Game()
+            f,r=create_formula(g)
+            if(not r):
+                print("impossible to find a bloc which contains all the islands")
+                return 0
+            print(f"formula = {f}")
+            f.dev()
+            print(f"development = {f}")
+        except:
+            print("you have some problem lets restart")
+    
+if __name__=='__main__':
+    main()
