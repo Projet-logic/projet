@@ -1,4 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Apr 29 06:02:56 2023
 
+@author: Kian Feizabadi & Tang Khac Vinh
+
+FILE DESCRIPTION:
+       game module for Hashiwokakero
+"""
 
 
 

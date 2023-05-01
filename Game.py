@@ -2,14 +2,7 @@
 """
 Created on Sat Apr 29 06:02:56 2023
 
-@author: moham
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 28 01:09:20 2023
-
-@author: Tang Khac Vinh
+@author: moham & Tang Khac Vinh
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
@@ -81,7 +74,7 @@ class Game:
     def get_possib_var_horiz(self):
         return deepcopy(self._possible_variable_horiz)
     def get_possib_var_vert(self):
-        return sdeepcopy(elf._possible_variable_vert)
+        return deepcopy(self._possible_variable_vert)
     def get_variable_interdi(self):
         return deepcopy(self._dict_variables_interdit)
     
