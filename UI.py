@@ -110,6 +110,6 @@ def init_game():
         while(res!='y' and res!='n'):
             res=input("do you want to add a circle?(y/n)")
     print("by ;)")
-    return l
+    return l,n,m
     
         
