@@ -19,9 +19,16 @@ from formula_d import *
 from connector_d import *
 from UI import *
 from copy import deepcopy
+
+
+"""
+Overall, this code defines the basic structure of the Bridges game and sets up the constraints and variables needed to solve the game using CSP.
+"""
 class Game:
-   
-    
+
+    """
+    a constructor method that initializes the game by setting up the islands, the board size, and the possible connections between the islands
+    """
     def __init__(self):
         l,m,n=init_game()
         #l=[(1,1,4),(1,3,5),(1,6,2),(4,1,4),(4,3,8),(4,6,5),(6,6,2),(7,1,2),\
@@ -43,7 +50,9 @@ class Game:
         self._dict_variables_possible=self.__variable_possible()
         
         
- 
+    """
+    The possible connections are computed using the __possible_connexion method, which scans the grid to find pairs of islands that can be connected horizontally or vertically.
+    """
     def __possible_connexion(self):
         i=0
         c_vert=list()
@@ -104,6 +113,10 @@ class Game:
             res.append(var)
         return res
     
+    """
+    The __variables_interdit method computes a dictionary that stores the variables that are not allowed to be used in the game. 
+    This is because some connections between the islands are not allowed due to the presence of other connections.
+    """
     def __variables_interdit(self):
         res=dict()
         for c in self._possible_variable_horiz:
@@ -134,6 +147,11 @@ class Game:
             res[key]=l
         return res
     
+    
+    """
+    The __variable_possible method computes a dictionary that stores the possible variables that can be used to represent the connections. 
+    This is based on the list of possible connections between the islands and the list of possible variables that can be used to represent these connections.
+    """
     def __variable_possible(self):
         res=dict()
         for i in range(len(self._list_islands)):
