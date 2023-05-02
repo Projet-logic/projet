@@ -42,10 +42,26 @@ def create_formula_iterative(game:Game):
                     IN.remove(var_i)
             f1+=f2
         F*=f1
-        f3=formula()
-        for var in game.get_variable_possible()[str(alpha)]:
-            f3+=var
-        F*=f3
+        if (not alpha in bloc):
+            added=False
+            f3=formula()
+            for c_in_bloc in list(bloc):
+                ex_c=ex_connection(game,alpha,c_in_bloc)
+                if(len(ex_c)):
+                    added=True
+                    f3+=ex_c[0]
+                    f3+=ex_c[1]
+                    bloc.append(alpha)
+                    for c_not_in_bloc in list(not_bloc):
+                        ex_c=ex_connection(game,c_not_in_bloc,alpha)
+                        if(len(ex_c)):
+                            f3+=ex_c[0]
+                            f3+=ex_c[1]
+                            not_bloc.remove(c_not_in_bloc)
+                            bloc.append(c_not_in_bloc)
+            if(not added):
+                not_bloc.append(alpha)
+            F*=f3
         alpha+=1
     return F
         
