@@ -2,7 +2,7 @@
 """
 Created on Mon Apr 24 14:16:23 2023
 
-@author: Kian Feizabadi
+@author: Kian Feizabadi & Tang Khac Vinh
 
 FILE DESCRIPTION:
        formula type definition
@@ -19,7 +19,17 @@ class constant(Enum):
 
 
 """
-this is an auxiliary class to define a specific operator
+This is an auxiliary class to define a specific operator.
+
+- This code defines a class called "Infix" which allows you to define custom infix operators in Python.
+
+- The "init" method initializes an instance of the class with a given function.
+
+- The "ror" method overloads the bitwise OR operator "|". It takes in another object "other" 
+and returns a new instance of the "Infix" class with a lambda function that calls the original function with "other" 
+as the second argument and the result of the bitwise OR operation between the original object and "other" as the first argument.
+
+- The "or" method overloads the OR operator "or". It takes in another object "other" and returns the result of calling the original function with "other" as the argument.
 """
 class Infix:
     def __init__(self,function):
@@ -31,9 +41,58 @@ class Infix:
     
     
 """
-formula is a type using the optional parameters to make different instance(variable or formula)
+Formula is a type using the optional parameters to make different instance(variable or formula)
 if you make an instance using a string as parameter, the instance will be a variable using the parameter for its name
-while if you make the instance using anouther 
+while if you make the instance using another.
+
+- The constructor of the class formula has two parameters, f and connector. If f is a string, it is treated as a variable and added to the current object's table. 
+If f is a formula object, the current object will contain the object f. If f is not a string or formula object, 
+the current object has no table, is assigned a connector, and is not initialized.
+
+- The formula's add_subf method is used to add a new element to the table of the current formula. If the current formula is a variable, 
+the new element will be added after the variable. If the current formula is not a variable, 
+the new element will be inserted at the index position in the table.
+
+- The formula's remove_subf method is used to remove an element from the current formula's table. 
+If the current formula is variable or uninitialized, it will raise an exception. If the element to be deleted is not in the table, this method will return None, 
+otherwise it will return the deleted element.
+
+- set_connector(self,connector=AND): This method is used to set the value of the _connector property of the formula object. 
+If the object is a variable (with the is_variable=True property), the method will throw an error. The default value of the connector is AND.
+
+- get_subf(self,i): This method returns the i-th element in the table containing the elements of the formula object. 
+If the object is a variable and has not initialized the table (not_initiated=True), the method will throw an error.
+
+- get_connector(self): This method returns the value of the _connector property of the formula object. 
+If the object is a variable, the method will throw an error.
+
+- __affect(self,Value): This method is used to assign a value to an instance variable. 
+This method can only be called when the object is a variable (is_variable=True), otherwise an error will be thrown.
+
+- refr(self): This method is used to update the formula object. If the object is a variable or has not initialized the table (not_initiated=True), 
+the method will not perform any operations. Otherwise, the method will iterate over each element of the table, and if the element is not a variable, the method will update the element again by grouping the child elements if they have the same logical connection.
+
+- __add__(self,f): This method performs the OR operation between object self and object f. 
+If either object is an uninitialized object (not_initiated=True), the method will return the other. 
+If both objects are initialized, the method will return a new formula object with the elements of self and f as its two children. 
+The logical connection between these two child elements will be set to OR.
+
+- Function __mul__(self, f): This function is called when performing multiplication between two objects self and f. If self or f is uninitialized, 
+it returns the initialized object. Otherwise, it creates a new object whose connector is AND, adds f to the table containing the modifiers, and refreshes the returned object.
+
+- __neg__(self): This function is called when performing the negation of an object self. 
+It returns a new object created from self, with the updated name, is_neg, _table, is_variable and not_initiated properties respectively. 
+If self is a logical variable, is_neg will be converted between True and False. If self is a logical expression (formula), 
+it will negate the entire expression and change the connector to OR if the connector was previously AND, and vice versa.
+
+- dev(self) function is a recursive method that performs the Shannon expansion algorithm for the formula object. 
+It divides the formula into a sum of products (SOP) representation by recursively applying the distributive law. 
+If the formula object has an OR connector, it applies the distributive law to convert it into a product of sums (POS) representation. 
+If it has an AND connector, it calls the refr() method and recursively applies the dev() method to its subformulas.
+
+__str__(self) function is used to convert the formula object to a string representation. If the formula is a variable, it returns its name or value, 
+depending on whether the variable has been assigned a value. If it is a negation, it returns the negation symbol followed by the variable name. 
+If it is a compound formula, it iterates through its subformulas and builds a string by concatenating the string representation of each subformula and the connector symbol.
 """
         
 class formula :
@@ -156,6 +215,7 @@ class formula :
                 else:
                     res._connector=AND
             return res
+            
         def dev(self):
             if(self.is_variable or self.not_initiated):
                 pass
