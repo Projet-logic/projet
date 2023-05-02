@@ -2,28 +2,30 @@
 """
 Created on Mon May  1 16:12:46 2023
 
-@author: moham & Vinh
+@author: moham & Vinh & Yuchen
 """
 from algo import *
 from Game import Game
 from formula_d import formula,AND,OR
 
 def save_dimacs(formule, filename):
-    """Saves the clauses provided in the first argument to the file provided in the
+    """
+    Saves the clauses provided in the first argument to the file provided in the
     second argument in DIMACS format.
     Expected format of clauses: list of integers (DIMACS format compatible with a DPLL solveur, 
-    i think pycosat or python-sat but i dont try to test yet)"""
+    i think pycosat or python-sat but i dont try to test yet)
+    """
     
-    # Initialize the number of clauses and a set to store the variables in the formula
+    # Initialiser le nombre sur clauses et un ensemble pour stocker les variables dans la formule.
     nb_clauses = 0
     variables = set()
 
-    # Count the number of clauses and add each variable to the set
+    # Compter le nombre de clauses et ajouter chaque variable à l'ensemble.
     for clause in formule:
         nb_clauses += 1
         variables |= set(map(abs, clause))
 
-    # Write the formula in DIMACS format to the file
+    # Écrire la formule au format DIMACS dans le fichier.
     with open(filename, "w") as file:
         # Write the header
         file.write("c Fichier DIMACS\n")
