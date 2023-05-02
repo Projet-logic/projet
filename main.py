@@ -2,7 +2,7 @@
 """
 Created on Mon May  1 16:12:46 2023
 
-@author: moham
+@author: moham & Vinh
 """
 from algo import *
 from Game import Game
