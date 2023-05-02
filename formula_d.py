@@ -240,6 +240,22 @@ class formula :
                     #print(f)
                 self.refr()
                 #input(f"end and{self}")
+        def not_var_in_list(var,list_):
+            for var_i in list_ :
+                if(( var_i.name == var.name) and (var_i.is_neg ==( not var.is_neg))):
+                    return True
+            return False
+        def env_val(self):
+            if(self.get_connector()==AND):
+                for sf in list(self._table):
+                    if(sf.get_connector()==OR):
+                        valide=False
+                        for var in sf._table:
+                            if(formula.not_var_in_list(var,sf._table)):
+                                valide=True
+                                break
+                        if(valide):
+                            self._table.remove(sf)
         
         def __str__(self):
             if(self.is_variable):
