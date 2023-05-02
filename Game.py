@@ -9,7 +9,7 @@ Created on Sat Apr 29 06:02:56 2023
 """
 Created on Mon Apr 28 01:09:20 2023
 
-@author: Tang Khac Vinh
+@author: Tang Khac Vinh,ZHANG Yuchen
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
