@@ -2,7 +2,7 @@
 """
 Created on Mon Apr 24 14:16:23 2023
 
-@author: Kian Feizabadi & Tang Khac Vinh
+@author: Kian Feizabadi & Tang Khac Vinh & ZHANG Yuchen
 
 FILE DESCRIPTION:
        formula type definition
@@ -19,17 +19,15 @@ class constant(Enum):
 
 
 """
-This is an auxiliary class to define a specific operator.
+Il s'agit d'une classe auxiliaire pour définir un opérateur spécifique.
 
-- This code defines a class called "Infix" which allows you to define custom infix operators in Python.
+- Ce code définit une classe appelée "Infix" qui vous permet de définir des opérateurs infix personnalisés en Python.
 
-- The "init" method initializes an instance of the class with a given function.
+- La méthode "init" initialise une instance de la classe avec une fonction donnée.
 
-- The "ror" method overloads the bitwise OR operator "|". It takes in another object "other" 
-and returns a new instance of the "Infix" class with a lambda function that calls the original function with "other" 
-as the second argument and the result of the bitwise OR operation between the original object and "other" as the first argument.
+- La méthode "ror" surcharge l'opérateur OR binaire "|". Elle prend en entrée un autre objet "other" et renvoie une nouvelle instance de la classe "Infix" avec une fonction lambda qui appelle la fonction originale avec "other" en tant que deuxième argument et le résultat de l'opération OR binaire entre l'objet original et "other" en tant que premier argument.
 
-- The "or" method overloads the OR operator "or". It takes in another object "other" and returns the result of calling the original function with "other" as the argument.
+- La méthode "or" surcharge l'opérateur OR "or". Elle prend en entrée un autre objet "other" et renvoie le résultat de l'appel de la fonction originale avec "other" en tant qu'argument.
 """
 class Infix:
     def __init__(self,function):
@@ -41,58 +39,57 @@ class Infix:
     
     
 """
-Formula is a type using the optional parameters to make different instance(variable or formula)
-if you make an instance using a string as parameter, the instance will be a variable using the parameter for its name
-while if you make the instance using another.
+La Formule est un type qui utilise des paramètres optionnels pour créer différentes instances (variables ou formules). 
+Si vous créez une instance en utilisant une chaîne de caractères comme paramètre, 
+l'instance sera une variable portant le nom spécifié dans le paramètre. En revanche, si vous créez l'instance en utilisant un autre type de paramètre.
 
-- The constructor of the class formula has two parameters, f and connector. If f is a string, it is treated as a variable and added to the current object's table. 
-If f is a formula object, the current object will contain the object f. If f is not a string or formula object, 
-the current object has no table, is assigned a connector, and is not initialized.
+- Le constructeur de la classe Formule a deux paramètres, f et connecteur. Si f est une chaîne de caractères, 
+elle est traitée comme une variable et ajoutée à la table de l'objet courant. Si f est un objet formule, l'objet courant contiendra l'objet f. 
+Si f n'est ni une chaîne de caractères ni un objet formule, l'objet courant n'a pas de table, se voit attribuer un connecteur et n'est pas initialisé.
 
-- The formula's add_subf method is used to add a new element to the table of the current formula. If the current formula is a variable, 
-the new element will be added after the variable. If the current formula is not a variable, 
-the new element will be inserted at the index position in the table.
+- La formule add_subf est utilisée pour ajouter un nouvel élément à la table de la formule courante. 
+Si la formule courante est une variable, le nouvel élément sera ajouté après la variable.
+Si la formule courante n'est pas une variable, le nouvel élément sera inséré à la position d'indice dans la table.
 
-- The formula's remove_subf method is used to remove an element from the current formula's table. 
-If the current formula is variable or uninitialized, it will raise an exception. If the element to be deleted is not in the table, this method will return None, 
-otherwise it will return the deleted element.
+- La formule remove_subf est utilisée pour supprimer un élément de la table de la formule courante. 
+Si la formule courante est une variable ou non initialisée, elle lèvera une exception. 
+Si l'élément à supprimer n'est pas dans la table, cette méthode renverra None, sinon elle renverra l'élément supprimé.
 
-- set_connector(self,connector=AND): This method is used to set the value of the _connector property of the formula object. 
-If the object is a variable (with the is_variable=True property), the method will throw an error. The default value of the connector is AND.
+- set_connector(self, connector=AND): Cette méthode est utilisée pour définir la valeur de la propriété _connector de l'objet formule. 
+Si l'objet est une variable (avec la propriété is_variable=True), la méthode lèvera une erreur. La valeur par défaut du connecteur est AND.
 
-- get_subf(self,i): This method returns the i-th element in the table containing the elements of the formula object. 
-If the object is a variable and has not initialized the table (not_initiated=True), the method will throw an error.
+- get_subf(self, i): Cette méthode renvoie le i-ème élément de la table contenant les éléments de l'objet formule.
+Si l'objet est une variable et que la table n'a pas été initialisée (not_initiated=True), la méthode lèvera une erreur.
 
-- get_connector(self): This method returns the value of the _connector property of the formula object. 
-If the object is a variable, the method will throw an error.
+- get_connector(self): Cette méthode renvoie la valeur de la propriété _connector de l'objet formule. Si l'objet est une variable, la méthode lèvera une erreur.
 
-- __affect(self,Value): This method is used to assign a value to an instance variable. 
-This method can only be called when the object is a variable (is_variable=True), otherwise an error will be thrown.
+- __affect(self, Value): Cette méthode est utilisée pour affecter une valeur à une variable d'instance. 
+Cette méthode ne peut être appelée que lorsque l'objet est une variable (is_variable=True), sinon une erreur sera levée.
 
-- refr(self): This method is used to update the formula object. If the object is a variable or has not initialized the table (not_initiated=True), 
-the method will not perform any operations. Otherwise, the method will iterate over each element of the table, and if the element is not a variable, the method will update the element again by grouping the child elements if they have the same logical connection.
+- refr(self): Cette méthode est utilisée pour mettre à jour l'objet formule. Si l'objet est une variable ou que la table n'a pas été initialisée (not_initiated=True), 
+la méthode ne effectuera aucune opération. Sinon, la méthode itérera sur chaque élément de la table, et si l'élément n'est pas une variable, 
+la méthode mettra à jour l'élément en regroupant à nouveau les éléments enfants s'ils ont la même connexion logique.
 
-- __add__(self,f): This method performs the OR operation between object self and object f. 
-If either object is an uninitialized object (not_initiated=True), the method will return the other. 
-If both objects are initialized, the method will return a new formula object with the elements of self and f as its two children. 
-The logical connection between these two child elements will be set to OR.
+- __add__(self,f):Cette méthode effectue l'opération OR entre l'objet self et l'objet f. Si l'un des objets est un objet non initialisé (not_initiated=True), 
+la méthode renverra l'autre. Si les deux objets sont initialisés, la méthode renverra un nouvel objet formule avec les éléments de self et f comme ses deux enfants. 
+La connexion logique entre ces deux éléments enfants sera définie sur OR.
 
-- Function __mul__(self, f): This function is called when performing multiplication between two objects self and f. If self or f is uninitialized, 
-it returns the initialized object. Otherwise, it creates a new object whose connector is AND, adds f to the table containing the modifiers, and refreshes the returned object.
+- Function __mul__(self, f):Cette fonction est appelée lors de la multiplication entre deux objets self et f. Si self ou f n'est pas initialisé, 
+il renvoie l'objet initialisé. Sinon, il crée un nouvel objet dont le connecteur est AND, ajoute f à la table contenant les modificateurs et rafraîchit l'objet renvoyé.
 
-- __neg__(self): This function is called when performing the negation of an object self. 
-It returns a new object created from self, with the updated name, is_neg, _table, is_variable and not_initiated properties respectively. 
-If self is a logical variable, is_neg will be converted between True and False. If self is a logical expression (formula), 
-it will negate the entire expression and change the connector to OR if the connector was previously AND, and vice versa.
+- __neg__(self):Cette fonction est appelée lors de la négation d'un objet self. Elle renvoie un nouvel objet créé à partir de self, 
+avec les propriétés de nom, is_neg, _table, is_variable et not_initiated mises à jour respectivement. Si self est une variable logique, is_neg sera converti entre True et False. 
+Si self est une expression logique (formule), elle niera toute l'expression et changera le connecteur en OR si le connecteur était précédemment AND, et vice versa.
 
-- dev(self) function is a recursive method that performs the Shannon expansion algorithm for the formula object. 
-It divides the formula into a sum of products (SOP) representation by recursively applying the distributive law. 
-If the formula object has an OR connector, it applies the distributive law to convert it into a product of sums (POS) representation. 
-If it has an AND connector, it calls the refr() method and recursively applies the dev() method to its subformulas.
+- dev(self) est une méthode récursive qui effectue l'algorithme d'expansion de Shannon pour l'objet formule. 
+Elle divise la formule en une représentation somme de produits (SOP) en appliquant récursivement la loi distributive. Si l'objet formule a un connecteur OR, 
+elle applique la loi distributive pour le convertir en une représentation produit de sommes (POS). Si elle a un connecteur AND, 
+elle appelle la méthode refr() et applique récursivement la méthode dev() à ses sous-formules.
 
-__str__(self) function is used to convert the formula object to a string representation. If the formula is a variable, it returns its name or value, 
-depending on whether the variable has been assigned a value. If it is a negation, it returns the negation symbol followed by the variable name. 
-If it is a compound formula, it iterates through its subformulas and builds a string by concatenating the string representation of each subformula and the connector symbol.
+__str__(self) est utilisée pour convertir l'objet de formule en une représentation de chaîne de caractères. 
+Si la formule est une variable, elle renvoie son nom ou sa valeur, selon que la variable ait été affectée ou non. 
+Si c'est une négation, elle renvoie le symbole de négation suivi du nom de la variable. 
+Si c'est une formule composée, elle itère à travers ses sous-formules et construit une chaîne en concaténant la représentation de chaîne de chaque sous-formule et le symbole de connexion.
 """
         
 class formula :
