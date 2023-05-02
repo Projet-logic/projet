@@ -86,6 +86,8 @@ class Game:
                 
     def get_circle(self,index):
         return deepcopy(self._list_islands[index])
+    def get_list(self):
+        return deepcopy(self._list_islands)
     def get_posiib_horiz(self):
         return deepcopy(self._possible_connexion_horiz)
     def get_posiib_vert(self):
