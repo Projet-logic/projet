@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Apr 29 06:02:56 2023
-
-@author: moham
-"""
 
 # -*- coding: utf-8 -*-
 """
 Created on Mon Apr 28 01:09:20 2023
 
-@author: Tang Khac Vinh,ZHANG Yuchen
+@author: Tang Khac Vinh,ZHANG Yuchen, moham
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
