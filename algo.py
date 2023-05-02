@@ -50,7 +50,7 @@ def create_formula_iterative(game:Game):
                     IN.remove(var_i)
             f1+=f2
         F*=f1
-        F.dev()
+        #F.dev()
         if (not alpha in bloc):
             added=False
             f3=formula()
