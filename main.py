@@ -39,14 +39,12 @@ def main():
     while True:
         try:
             g=Game()
-            f,r=create_formula(g)
-            if(not r):
-                print("impossible to find a bloc which contains all the islands")
-                return 0
+            f=create_formula_iterative(g)
             print(f"formula = {f}")
             f.dev()
             print(f"development = {f}")
             save_dimacs(f, "dimacs.txt")
+            input()
             return 1
         except:
             print("you have some problem lets restart")
