@@ -2,7 +2,7 @@
 """
 Created on Sat Apr 29 06:02:56 2023
 
-@author: Kian Feizabadi & Tang Khac Vinh
+@author: Kian Feizabadi & Tang Khac Vinh & ZHANG Yuchen
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
@@ -10,7 +10,7 @@ FILE DESCRIPTION:
 
 
 """
-the function is used to check if a given point lies within any of the circles in the list "l".
+La fonction est utilisée pour vérifier si un point donné se trouve à l'intérieur de l'un des cercles de la liste "l".
 """
 def exist_in_list(l,i,j):
     for circle in l:
@@ -20,7 +20,7 @@ def exist_in_list(l,i,j):
         return False
 
 """
-Print the instance of cercle to the grid
+Imprimer l'instance de l'objet cercle sur la grille.
 """
 def print_instance(list_of_c,n,m):
     print(" ",end="")
@@ -51,7 +51,7 @@ def print_instance(list_of_c,n,m):
     
 
 """
-Function that allows to run the program with questions that help the player determine the values and positions of cercles in the grid
+Fonction qui permet de lancer le programme avec des questions qui aident le joueur à déterminer les valeurs et les positions des cercles sur la grille.
 """
 def init_game():
     try:
