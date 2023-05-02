@@ -17,9 +17,17 @@ def ens_possible_connexion(g:Game,c:tuple):
     tmp=g.get_variable_possible()[str(c[2])]
     return combinations(tmp, c[2])
 
+def ex_connection(game:Game,n1,n2):
+    res=list()
+    for var in game.get_variable_possible()[str(n1)]:
+        if((var.name[0] == str(n2)) or (var.name[1]== str(n2))):
+            res.append(var)
+    return res
 def create_formula_iterative(game:Game):
     F=formula()
     alpha=1
+    bloc=[1]
+    not_bloc=list()
     for c in game.get_list():
         
         li=list(ens_possible_connexion(game, c))
@@ -42,6 +50,7 @@ def create_formula_iterative(game:Game):
                     IN.remove(var_i)
             f1+=f2
         F*=f1
+        F.dev()
         if (not alpha in bloc):
             added=False
             f3=formula()
@@ -64,4 +73,35 @@ def create_formula_iterative(game:Game):
             F*=f3
         alpha+=1
     return F
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
