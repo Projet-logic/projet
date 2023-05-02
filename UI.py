@@ -9,14 +9,19 @@ FILE DESCRIPTION:
 """
 
 
-
+"""
+the function is used to check if a given point lies within any of the circles in the list "l".
+"""
 def exist_in_list(l,i,j):
     for circle in l:
         if(circle[0]==i and circle[1]==j):
             return circle[2]
     else:
         return False
-    
+
+"""
+Print the instance of cercle to the grid
+"""
 def print_instance(list_of_c,n,m):
     print(" ",end="")
     for i in range(m):
@@ -44,6 +49,10 @@ def print_instance(list_of_c,n,m):
     print(" ",end="")
     print()
     
+
+"""
+Function that allows to run the program with questions that help the player determine the values and positions of cercles in the grid
+"""
 def init_game():
     try:
         n=int(input("enter width of grid"))
