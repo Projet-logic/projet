@@ -40,11 +40,11 @@ def main():
         try:
             g=Game()
             f=create_formula_iterative(g)
-            print(f"formula = {f}")
+            input(f"formula = {f}")
             f.dev()
-            print(f"development = {f}")
+            f.env_val()
+            input(f"development = {f}")
             save_dimacs(f, "dimacs.txt")
-            input()
             return 1
         except:
             print("you have some problem lets restart")
