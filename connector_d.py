@@ -2,7 +2,7 @@
 """
 Created on Mon Apr 24 14:32:17 2023
 
-@author: Kian Feizabadi
+@author: Feizabadi & Vinh & Yuchen
 
 FILE DESCRIPTION:
        logical connectors type definition
