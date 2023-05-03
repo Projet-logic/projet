@@ -7,47 +7,68 @@ Created on Mon May  1 16:12:46 2023
 from algo import *
 from Game import Game
 from formula_d import formula,AND,OR
+import minisat as sat
 
-def save_dimacs(formule, filename):
-    """
-    Saves the clauses provided in the first argument to the file provided in the
-    second argument in DIMACS format.
-    Expected format of clauses: list of integers (DIMACS format compatible with a DPLL solveur, 
-    i think pycosat or python-sat but i dont try to test yet)
-    """
+class CNF:
     
-    # Initialiser le nombre sur clauses et un ensemble pour stocker les variables dans la formule.
-    nb_clauses = 0
-    variables = set()
+    def __init__(self):
+        self.clauses = []
+        self.num_vars = 0
 
-    # Compter le nombre de clauses et ajouter chaque variable à l'ensemble.
-    for clause in formule:
-        nb_clauses += 1
-        variables |= set(map(abs, clause))
+    def add_clause(self, literals):
+        self.clauses.append(literals)
 
-    # Écrire la formule au format DIMACS dans le fichier.
-    with open(filename, "w") as file:
-        # Write the header
-        file.write("c Fichier DIMACS\n")
-        file.write(f"p cnf {len(variables)} {nb_clauses}\n")
+        for literal in literals:
+            if abs(literal) > self.num_vars:
+                self.num_vars = abs(literal)
 
-        # Write each clause
-        for clause in formule:
-            file.write(" ".join(str(v) for v in clause) + " 0\n")
-    
+    def to_dimacs(self):
+        lines = []
+        lines.append(f"p cnf {self.num_vars} {len(self.clauses)}")
+
+        for clause in self.clauses:
+            line = " ".join(str(literal) for literal in clause)
+            line += " 0"
+            lines.append(line)
+
+        return "\n".join(lines)
+                    
 def main():
     while True:
         try:
             g=Game()
             f=create_formula_iterative(g)
-            input(f"formula = {f}")
+            print(f"formula = {f}")
             f.dev()
-            f.env_val()
-            input(f"development = {f}")
-            save_dimacs(f, "dimacs.txt")
+            print(f"development = {f}")
+            
+            cnf = CNF()
+            
+            # transformer au fichier CNF
+            for clause in f.clauses:
+                cnf.add_clause(clause)
+            
+            # Sauvegarder CNF au fichier DIMACS
+            with open("formula.dimacs", "w") as file:
+                file.write(cnf.to_dimacs())
+                
+            # Resoudre SAT par SAT Solveur
+            with open("formula.dimacs", "r") as file:
+                cnf = sat.CNF(from_file=file)
+                solver = sat.Solver()
+                solver.append_formula(cnf.clauses)
+                is_sat, model = solver.solve()
+                
+                if is_sat:
+                    print("the formula is correct")
+                    print(f"A valid alternative: {model}")
+                else:
+                    print("the formula is not correct")
             return 1
         except:
-            print("you have some problem lets restart")
+            print("you have some problem or that's end, lets restart")
+            
+            
     
 if __name__=='__main__':
     main()
