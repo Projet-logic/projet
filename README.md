@@ -20,12 +20,12 @@
     - a formula is a recursive type which is defined by its left subformula, right subformula, and its connector
     - its subformulas could be either a Variable,constant Value or a formula
 # exécuter les étapes:
-1.ctrl f5 pour lancer le test
-2.entrez la largeur de la grille entre 1 et 8
-3.entrez la longueur de la grille entre 1 et 8
-4.Détermine si un nouveau cercle doit être ajouté(y<=>oui,n<=>non)
-5.si oui,insérer le numéro de ligne,
-si non,Il va vérifier s'il existe une solution, et si oui, donner la formule
-6.insérer le numéro de colonne
-7.insérer un nombre limité de ponts
-8.aficher le jeu et retour à 4ème étapes
+-1.ctrl f5 pour lancer le test
+-2.entrez la largeur de la grille entre 1 et 8
+-3.entrez la longueur de la grille entre 1 et 8
+-4.Détermine si un nouveau cercle doit être ajouté(y<=>oui,n<=>non)
+-5.si oui,insérer le numéro de ligne,
+-si non,Il va vérifier s'il existe une solution, et si oui, donner la formule
+-6.insérer le numéro de colonne
+-7.insérer un nombre limité de ponts
+-8.aficher le jeu et retour à 4ème étapes
