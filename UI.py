@@ -59,7 +59,7 @@ def init_game():
     except:
         print("you should have entered a number")
         return 0
-    while(not(1<n<=n)):
+    while(not(1<n)):
         try:
             n=int(input("width & length should be between 2 and the number that you entered"))
         except:
