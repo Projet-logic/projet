@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon May  1 16:12:46 2023
+Created on Mon May 3 10:12:24 2023
 
-@author: moham & Vinh & Yuchen
+@author: Vinh
 """
 from algo import *
 from Game import Game
