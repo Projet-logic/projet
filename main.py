@@ -10,45 +10,35 @@ from formula_d import formula,AND,OR
 import pycosat as sat
 
 
-def save_dimacs(formule, filename):
-    """
-        Enregistre les clauses fournies en 1e argument dans le fichier fourni en
-            2e argument au format DIMACS.
-        Format de clauses attendu: liste d'entiers (format dimacs compatible avec
-        pycosat)
-    """    
-    #Initialisation du nombre de clause
-    nb_clauses = 0
-    #Initialisation d'une liste pour chercher le nombre de variables de la formule
-    listeVar=[]
+from algo import *
+from Game import Game
+from formula_d import formula,AND,OR
+import pycosat as sat
 
+
+def save_dimacs(formule, filename):
+    """Saves the clauses provided in the first argument to the file provided in the
+    second argument in DIMACS format.
+    Expected format of clauses: list of integers (DIMACS format compatible with pycosat)"""
+    
+    # Initialize the number of clauses and a set to store the variables in the formula
+    nb_clauses = 0
+    variables = set()
+
+    # Count the number of clauses and add each variable to the set
     for clause in formule:
-        # incrémenter le nombre de clauses
-        nb_clauses+=1
-        # Pour chaque variable, si elle n'est pas dans listeVar, incrementer
-        # le compteur du nombre de variable et l'ajouter dans listeVar
-        for variable in clause:
-            if not(variable in listeVar) and not(-variable in listeVar):
-                listeVar.append(variable)
-    #Ecriture du le fichier au format DIMACS
-    with open(filename, "w") as fichier:
-        # En-tête
-        fichier.write("c Fichier DIMACS\n")
-        fichier.write("p cnf ")
-        fichier.write(str(len(listeVar)))
-        fichier.write(" ")
-        fichier.write(str(nb_clauses))
-        fichier.write("\n")
-        # Clauses
+        nb_clauses += 1
+        variables |= set(map(abs, clause))
+
+    # Write the formula in DIMACS format to the file
+    with open(filename, "w") as file:
+        # Write the header
+        file.write("c Fichier DIMACS\n")
+        file.write(f"p cnf {len(variables)} {nb_clauses}\n")
+
+        # Write each clause
         for clause in formule:
-            i = 1
-            for variable in clause:
-                fichier.write(str(variable))
-                fichier.write(" ")
-                if i == len(clause):
-                    fichier.write("0")
-                i += 1
-            fichier.write("\n")
+            file.write(" ".join(str(v) for v in clause) + " 0\n")
 
 #---------------------------------------------------------------------------------
 def extract_variables(s):
