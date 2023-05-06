@@ -126,7 +126,7 @@ def init_game():
         res=input("do you want to add a circle?(y/n)")
         while(res!='y' and res!='n'):
             res=input("do you want to add a circle?(y/n)")
-    print("by ;)")
+    print("bye :)")
     return l,n,m
     
         
