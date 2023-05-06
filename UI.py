@@ -2,7 +2,7 @@
 """
 Created on Sat Apr 29 06:02:56 2023
 
-@author: Kian Feizabadi & Tang Khac Vinh & ZHANG Yuchen
+@author: Kian Feizabadi & Tang Khac Vinh
 
 FILE DESCRIPTION:
        game module for Hashiwokakero
@@ -55,25 +55,13 @@ Fonction qui permet de lancer le programme avec des questions qui aident le joue
 """
 def init_game():
     try:
-        n=int(input("enter width of grid"))
+        n=int(input("enter width & length of grid"))
     except:
         print("you should have entered a number")
         return 0
-    while(not(1<n<=10)):
+    while(not(1<n<=n)):
         try:
-            n=int(input("width should be between 1 and 10 enter width of grid"))
-        except:
-            print("you should have entered a number")
-            return 0
-        
-    try:
-        m=int(input("enter length of grid"))
-    except:
-        print("you should have entered a number")
-        return 0
-    while(not(1<m<=10)):
-        try:
-            m=int(input("length should be between 1 and 10 enter width of grid"))
+            n=int(input("width & length should be between 2 and the number that you entered"))
         except:
             print("you should have entered a number")
             return 0
@@ -82,29 +70,29 @@ def init_game():
     while(res!='y' and res!='n'):
         res=input("do you want to add a circle?(y/n)")
     l=list()
-    while (res!='n' and len(l)<9):
+    while (res!='n' and len(l)<(n+1)):
         
         try:
-            i=int(input("insert row number"))
+            i=int(input("insert row number that you want"))
         except:
             print("you should have entered a number")
             return 0
         
-        while(not(1<=i<=n)):
+        while(not(0<=i<=n)):
             try:
                 i=int(input(f"row should be between 1 and {n} enter width of grid"))
             except:
                 print("you should have entered a number")
                 return 0
         try:
-            j=int(input("insert colunm number"))
+            j=int(input("insert colunm number that you want"))
         except:
             print("you should have entered a number")
             return 0
         
-        while(not(1<=j<=m)):
+        while(not(0<=j<=n)):
             try:
-                j=int(input(f"colunm should be between 1 and {m} enter width of grid"))
+                j=int(input(f"colunm should be between 1 and {n} enter width of grid"))
             except:
                 print("you should have entered a number")
                 return 0
@@ -114,7 +102,7 @@ def init_game():
             print("you should have entered a number")
             return 0
         
-        while(not(1<=i<=8)):
+        while(not(1<=bn<=8)):
             try:
                 bn=int(input("bridg limited number should be between 1 and 8 enter width of grid"))
             except:
@@ -122,11 +110,11 @@ def init_game():
                 return 0
         
         l.append((i,j,bn))
-        print_instance(l, n, m)
+        print_instance(l, n, n)
         res=input("do you want to add a circle?(y/n)")
         while(res!='y' and res!='n'):
             res=input("do you want to add a circle?(y/n)")
     print("bye :)")
-    return l,n,m
+    return l,n,n
     
         
