@@ -2,7 +2,7 @@
 """
 Created on Mon May  1 16:12:46 2023
 
-@author: Vinh 
+@author: moham & Vinh & Yuchen
 """
 from algo import *
 from Game import Game
@@ -14,7 +14,7 @@ def save_dimacs(formule, filename):
     """
         Enregistre les clauses fournies en 1e argument dans le fichier fourni en
             2e argument au format DIMACS.
-         Format de clauses attendu: liste d'entiers (format dimacs compatible avec
+        Format de clauses attendu: liste d'entiers (format dimacs compatible avec
         pycosat)
     """    
     #Initialisation du nombre de clause
@@ -50,6 +50,7 @@ def save_dimacs(formule, filename):
                 i += 1
             fichier.write("\n")
 
+#---------------------------------------------------------------------------------
 def extract_variables(s):
     # Diviser les chaînes en variables et calculs
     values = s.split('*')
@@ -110,6 +111,7 @@ def extract_variables(s):
         int_variable_names.append(new_sublist)
     return int_variable_names
  
+#---------------------------use pycosat------------------------------------------------ 
  # Trouver une solution
 def satSolution(final_list):
     
@@ -121,7 +123,9 @@ def satSolution(final_list):
     # Sinon, juste mettre a jour le texte
     else:
         print("Aucune solution trouvée!")
-                                    
+        
+        
+ #-----------------------------------------main function--------------------------------                                   
 def main():
     try:
         g=Game()
@@ -130,10 +134,11 @@ def main():
         #f.dev()
         #print(f"development = {f}")
         
-        final_list=extract_variables(f)
+        final_list=extract_variables(str(f))
         print(final_list)
+        save_dimacs(final_list, "sat.cnf")
         satSolution(final_list)       
-        save_dimacs(sat, sat.cnf)
+        
     except:
         print("you have some problem or that's end, lets restart")
 
