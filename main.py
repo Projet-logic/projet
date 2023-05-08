@@ -111,7 +111,7 @@ def satSolution(final_list):
     
     solution = sat.solve(final_list)
     # Si une solution a été trouvée, l'afficher et mettre à jour le texte
-    if not (solution == "UNSAT" or solution == "UNKNOWN"):
+    if not (solution == "UNSAT" or solution == "UNKNOWN" or solution == []):
         print(solution)
         print("Solution trouvée!")
     # Sinon, juste mettre a jour le texte
