@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 28 01:09:20 2023
+Created on Mon Mai 04 01:09:20 2023
 
 @author: Tang Khac Vinh,ZHANG Yuchen, moham
 
@@ -11,21 +11,26 @@ FILE DESCRIPTION:
 
 from formula_d import *
 from connector_d import *
-from UI import *
+from UI import num1, num2, grille_du_jeux
 from copy import deepcopy
+
 
 
 """
 Dans l'ensemble, 
 ce code définit la structure de base du jeu Bridges et met en place les contraintes et les variables nécessaires pour résoudre le jeu à l'aide de la CSP.
 """
+grille_du_jeux   
 class Game:
-
+     
     """
     Une méthode de constructeur qui initialise le jeu en configurant les îles, la taille du plateau et les connexions possibles entre les îles.
     """
-    def __init__(self):
-        l,m,n=init_game()
+    def __init__(self):  
+                
+        l = num1
+        n= num2
+        m= num2
         #l=[(1,1,4),(1,3,5),(1,6,2),(4,1,4),(4,3,8),(4,6,5),(6,6,2),(7,1,2),\
            #(7,3,4)]
         #m=8
