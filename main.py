@@ -1,59 +1,61 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon May 3 10:12:24 2023
+Created on Mon May  1 16:12:46 2023
 
-@author: Vinh
+@author: Tang Khac Vinh
 """
+from tkinter import *
 from algo import *
 from Game import Game
 from formula_d import formula,AND,OR
 import pycosat as sat
+import re
 
-
-from algo import *
-from Game import Game
-from formula_d import formula,AND,OR
-import pycosat as sat
-
-
-def save_dimacs(formule, filename):
-    """Saves the clauses provided in the first argument to the file provided in the
-    second argument in DIMACS format.
-    Expected format of clauses: list of integers (DIMACS format compatible with pycosat)"""
+#------------------------------SAVE DIMACS--------------------------------------
+def dimacs(formule, filename):
+    """
+    Enregistre les clauses fournies dans le premier argument dans le fichier fourni dans le
+     deuxième argument au format DIMACS.
+    Format attendu des clauses : liste d'entiers (format DIMACS compatible avec pycosat)
+    """
     
-    # Initialize the number of clauses and a set to store the variables in the formula
+    # Initialiser le nombre de clauses et un ensemble pour stocker les variables dans la formule
     nb_clauses = 0
     variables = set()
 
-    # Count the number of clauses and add each variable to the set
+    # Compter le nombre de clauses et ajouter chaque variable à l'ensemble
     for clause in formule:
         nb_clauses += 1
         variables |= set(map(abs, clause))
 
-    # Write the formula in DIMACS format to the file
+    # Ecrire la formule au format DIMACS dans le fichier
     with open(filename, "w") as file:
-        # Write the header
+        # Ecrire l'en-tête
         file.write("c Fichier DIMACS\n")
         file.write(f"p cnf {len(variables)} {nb_clauses}\n")
 
-        # Write each clause
+        # Ecrire chaque clause
         for clause in formule:
             file.write(" ".join(str(v) for v in clause) + " 0\n")
 
-#---------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------#
+"""
+convertir la formule en une forme utilisable et solvable par pycosat
+"""
 def extract_variables(s):
     # Diviser les chaînes en variables et calculs
-    values = s.split('*')
-    variables = []
-    for val in values:
-        if val[0] == "(":
-            variables.append(val[1:len(val)-1])
-        else:
-            variables.append(val)
+    s= s[1:len(s)-1]
+
+    # Rechercher et diviser des sous-chaînes
+    variables = re.findall(r'\((?:[^(]+|\((?:[^(]+|\([^()]+\))*\))*\)|\d+', s)
+
             
     #créer des sous-listes dans une grande liste       
     big_list = []
     for val in variables:
+        if val[0] == "(":
+            val = val[1:len(val)-1]
+            
         if "-" in val and "+" in val:
             t = val.split('+')
             big_list.append(t)
@@ -62,6 +64,7 @@ def extract_variables(s):
             big_list.append(t) 
         else :
             big_list.append([val])
+    #print(big_list)
             
     #donner des noms numériques aux variables
     variable_names = []
@@ -90,6 +93,7 @@ def extract_variables(s):
                     new_sublist.append(str(var_num))
                     var_num += 1
         variable_names.append(new_sublist)
+    #print(variable_names)
             
     for sublist in variable_names:
         new_sublist = []
@@ -100,8 +104,8 @@ def extract_variables(s):
                 new_sublist.append(element)
         int_variable_names.append(new_sublist)
     return int_variable_names
- 
-#---------------------------use pycosat------------------------------------------------ 
+
+#---------------------------USE PYCOSAT------------------------------------------------# 
  # Trouver une solution
 def satSolution(final_list):
     
@@ -115,7 +119,7 @@ def satSolution(final_list):
         print("Aucune solution trouvée!")
         
         
- #-----------------------------------------main function--------------------------------                                   
+ #-----------------------------------------MAIN FUNCTION--------------------------------#                                   
 def main():
     try:
         g=Game()
@@ -125,8 +129,8 @@ def main():
         #print(f"development = {f}")
         
         final_list=extract_variables(str(f))
-        print(final_list)
-        save_dimacs(final_list, "sat.cnf")
+        #print(final_list)
+        dimacs(final_list, "sat.cnf")
         satSolution(final_list)       
         
     except:
@@ -138,3 +142,5 @@ def main():
     
 if __name__=='__main__':
     main()
+
+
