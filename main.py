@@ -125,8 +125,8 @@ def main():
         g=Game()
         f=create_formula_iterative(g)
         print(f"formula = {f}")
-        #f.dev()
-        #print(f"development = {f}")
+        f.dev()
+        print(f"development = {f}")
         
         final_list=extract_variables(str(f))
         #print(final_list)
