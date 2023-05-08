@@ -23,6 +23,7 @@ def ex_connection(game:Game,n1,n2):
         if((var.name[0] == str(n2)) or (var.name[1]== str(n2))):
             res.append(var)
     return res
+
 def create_formula_iterative(game:Game):
     F=formula()
     alpha=1
