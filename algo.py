@@ -23,7 +23,6 @@ def ex_connection(game:Game,n1,n2):
         if((var.name[0] == str(n2)) or (var.name[1]== str(n2))):
             res.append(var)
     return res
-
 def create_formula_iterative(game:Game):
     F=formula()
     alpha=1
@@ -32,6 +31,8 @@ def create_formula_iterative(game:Game):
     for c in game.get_list():
         
         li=list(ens_possible_connexion(game, c))
+        if(not len(li)):
+            return None
         f1=formula()
         for S in li:
             list_name_in_S=list(map(lambda x:x.name,S))
