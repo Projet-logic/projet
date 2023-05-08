@@ -17,7 +17,7 @@ with open('information.txt', 'r') as f:
     num1 = eval(num1[19:])
     
     num2 = lines[1]
-    num2 = int(num2[len(num2)-2])
+    num2 = int(num2[-3:])
 
 """
 La fonction est utilisée pour vérifier si un point donné se trouve à l'intérieur de l'un des cercles de la liste "l".
@@ -43,11 +43,10 @@ def print_instance(list_of_c,n,m):
     print()
     for j in range(n):
         print('|',end="")
-        index=0
-        j2=2
+        index=-1
+        j2=0
         while j2<(m*3)+1:
-            index+=(j2%3 == 1)
-            
+            index+=(j2%3 == 0)
             n=exist_in_list(list_of_c, j, index)
             if(n):
                 print(f'({n})',end="")
