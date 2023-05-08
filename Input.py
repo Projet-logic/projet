@@ -21,7 +21,9 @@ def save_to_file():
         # Enregistrez la valeur "taille" dans le fichier, avec le nom
         f.write("La taille de la grille: ")
         f.write(str(informations["taille"]))
+        f.write(" ")
         f.write("x")
+        f.write(" ")
         f.write(str(informations["taille"]))
         f.write("\n")
 
