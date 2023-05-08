@@ -99,7 +99,7 @@ class Interface:
             x = int(self.row_entry.get())
             y = int(self.col_entry.get())
             z = int(self.val_entry.get())
-            if 1<= x <= a and 1<= y <= a and 1 <= z <= 8:
+            if 0 <= x <= a and 0 <= y <= a and 1 <= z <= 8:
                 tk.messagebox.showinfo("Résultat", "Okay, les valeurs sont valides.")
             else:
                 tk.messagebox.showerror("Résultat", "Ah mince, les valeurs sont valides.")
@@ -113,7 +113,7 @@ class Interface:
             x = int(self.row_entry.get())
             y = int(self.col_entry.get())
             z = int(self.val_entry.get())
-            if 1 <= x <= a and 1<= y <= a and 1 <= z <= 8:
+            if 0 <= x <= a and 0 <= y <= a and 1 <= z <= 8:
                 self.values.append((x, y, z))
                 tk.messagebox.showinfo("Résultat", "Valeurs enregistrées")
             else:
