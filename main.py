@@ -112,6 +112,9 @@ def main():
     try:
         g=Game()
         f=create_formula_iterative(g)
+        if(not f):
+            print("Aucune solution trouvée!")
+            return 1
         print(f"formula = {f}")
         f.dev()
         print(f"development = {f}")
