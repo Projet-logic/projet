@@ -9,7 +9,7 @@ from algo import *
 from Game import Game
 from formula_d import formula,AND,OR
 import pycosat as sat
-import re
+
 
 #------------------------------SAVE DIMACS--------------------------------------
 def dimacs(formule, filename):
