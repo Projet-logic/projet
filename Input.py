@@ -44,56 +44,84 @@ créer une fenêtre d'interface pour saisir les valeurs nécessaires à la créa
 class Interface:
     def __init__(self, master):
         self.master = master
-        self.master.title("Hashiwokakero Solve")
-        root.geometry("500x500+100+100")
-        root.config(bg="white")
+        self.master.title("Hashiwokakero Solver")
+        root.geometry("800x260+100+100")
+        root.config(bg="#C2D4B4")
 
-        
+        self.hello_label = tk.Label(self.master, text="Welcome to our Game", font=("Lucida Bright", 15))
+        self.hello_label.grid(row=0, column=0, padx=5, pady=5)
+        self.hello_label.config(bg="#C2D4B4")
+
+
+        self.info_label = tk.Label(self.master, text=" OMG You have manually ", font=("Lucida Bright", 15))
+        self.info_label.grid(row=100, column=0, padx=5, pady=5)
+        self.info_label.config(bg="#C2D4B4")
+        self.info_label = tk.Label(self.master, text=" expanded the window !", font=("Lucida Bright", 15))
+        self.info_label.grid(row=101, column=0, padx=5, pady=5)
+        self.info_label.config(bg="#C2D4B4")
+                
+        self.person_label = tk.Label(self.master, text="Now, You wanna be", font=("Lucida Bright", 15))
+        self.person_label.grid(row=101, column=1, padx=5, pady=5)
+        self.person_label.config(bg="#C2D4B4")
+
+
         # Entrer la taille
-        self.size_label = tk.Label(self.master, text="La taille du jeux:")
-        self.size_label.grid(row=0, column=0)
+        self.size_label = tk.Label(self.master, text="La taille du jeux:",font=("Times New Roman", 10))
+        self.size_label.grid(row=8, column=0)
+        self.size_label.config(bg="#C2D4B4")
         self.size_entry = tk.Entry(self.master)
-        self.size_entry.grid(row=0, column=1)
+        self.size_entry.grid(row=9, column=0)
         
         # Entrer les valeurs d'une ile
-        self.row_label = tk.Label(self.master, text="Le position de l'axe horizontal :")
-        self.row_label.grid(row=1, column=0)
+        self.row_label = tk.Label(self.master, text="Position de l'axe horizontal :", font=("Times New Roman", 10))
+        self.row_label.grid(row=4, column=1)
+        self.row_label.config(bg="#C2D4B4")
         self.row_entry = tk.Entry(self.master)
-        self.row_entry.grid(row=1, column=1)
+        self.row_entry.grid(row=5, column=1)
         
-        self.col_label = tk.Label(self.master, text="position de l'axe vertical:",font=("Arial", 10))
-        self.col_label.grid(row=2, column=0)
+        self.col_label = tk.Label(self.master, text="Position de l'axe vertical:",font=("Times New Roman", 10))
+        self.col_label.grid(row=8, column=1)
+        self.col_label.config(bg="#C2D4B4")
         self.col_entry = tk.Entry(self.master)
-        self.col_entry.grid(row=2, column=1)
+        self.col_entry.grid(row=9, column=1)
         
-        self.val_label = tk.Label(self.master, text="la valeur de l'ile:",font=("Arial", 10))
-        self.val_label.grid(row=3, column=0)
+        self.val_label = tk.Label(self.master, text="Valeur de l'ile:",font=("Times New Roman", 10))
+        self.val_label.grid(row=8, column=3)
+        self.val_label.config(bg="#C2D4B4")
         self.val_entry = tk.Entry(self.master)
-        self.val_entry.grid(row=3, column=1)
-        
+        self.val_entry.grid(row=9, column=3)
+            
         # Bouton de contrôle
-        self.check_button = tk.Button(self.master, text="Check", command=self.check_values, font=("Arial", 15), bg="yellow", fg="black")
-        self.check_button.grid(row=4, column=0, columnspan=2)
+        self.check_button = tk.Button(self.master, text="Check", command=self.check_values, font=("Times New Roman", 20), bg="pink", fg="black")
+        self.check_button.grid(row=11, column=1, columnspan=1)
         
         # Bouton d'enregistrer
-        self.save_button = tk.Button(self.master, text="Save", command=self.save_values,font=("Arial", 15), bg="yellow", fg="black")
-        self.save_button.grid(row=4, column=2, columnspan=2)
+        self.save_button = tk.Button(self.master, text="Save", command=self.save_values,font=("Times New Roman", 13), bg="pink", fg="black")
+        self.save_button.grid(row=20, column=4, columnspan=1)
         
         # Bouton d'affichage
-        self.show_button = tk.Button(self.master, text="Show", command=self.show_values,font=("Arial", 15), bg="yellow", fg="black")
-        self.show_button.grid(row=10, column=0, columnspan=2)
+        self.show_button = tk.Button(self.master, text="Show", command=self.show_values,font=("Times New Roman", 13), bg="pink", fg="black")
+        self.show_button.grid(row=20, column=5, columnspan=1)
         
         # Button des infos
-        self.info_button = tk.Button(self.master, text="Save_info", command=self.save_informations,font=("Arial", 15), bg="yellow", fg="black")
-        self.info_button.grid(row=10, column=2, columnspan=2)
+        self.info_button = tk.Button(self.master, text="Put_Value", command=self.save_informations,font=("Times New Roman", 13), bg="pink", fg="black")
+        self.info_button.grid(row=20, column=6, columnspan=1)
         
         # Button de quitter le frame
-        self.quit_button = tk.Button(self.master, text="quit", command=self.quit,font=("Arial", 15), bg="yellow", fg="black")
-        self.quit_button.grid(row=16, column=1, columnspan=2)
+        self.quit_button = tk.Button(self.master, text="Quit", command=self.quit,font=("Times New Roman", 20), bg="pink", fg="black")
+        self.quit_button.grid(row=30, column=1, columnspan=1)
+        
+        # Button de joke     
+        self.Vinh_button = tk.Button(self.master, text="Vinh", command=self.Vinh, font=("Times New Roman", 13), bg="pink", fg="black")
+        self.Vinh_button.grid(row=102, column=1, columnspan=1)
+        self.Yu_button = tk.Button(self.master, text="Yuchen", command=self.Yu, font=("Times New Roman", 13), bg="pink", fg="black")
+        self.Yu_button.grid(row=103, column=1, columnspan=1)
+        self.Mo_button = tk.Button(self.master, text="Moham", command=self.Mo, font=("Times New Roman", 13), bg="pink", fg="black")
+        self.Mo_button.grid(row=104, column=1, columnspan=1)
         
         # Liste des tuples
         self.values = []
-    
+        
     #fonction qui vérifie les conditions d'initialisation d'une île    
     def check_values(self):
         try:
@@ -134,6 +162,17 @@ class Interface:
         informations["liste"] = self.values
         informations["taille"] = self.size_entry.get()
         
+    def Vinh(self):
+        tk.messagebox.showinfo("Who is Vinh","I am Spider Man with yasuo's tornado and Mbappe's speed !")
+        
+    def Yu(self):
+        tk.messagebox.showinfo("Who is Yu","I dont know this man")
+        
+    def Mo(self):
+        tk.messagebox.showinfo("Who is Mo","I dont know this man")
+        
+    
+
     #la fonction qui nous aide de quitter
     def quit(self):
         self.master.quit()
