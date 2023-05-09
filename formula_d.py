@@ -2,7 +2,7 @@
 """
 Created on Mon Apr 24 14:16:23 2023
 
-@author: Kian Feizabadi & Tang Khac Vinh & ZHANG Yuchen
+@author: Kian Feizabadi
 
 FILE DESCRIPTION:
        formula type definition
@@ -19,8 +19,7 @@ class constant(Enum):
 
 
 """
-Il s'agit d'une classe auxiliaire pour définir un opérateur spécifique.
-
+this is an auxiliary class to define a specific operator
 """
 class Infix:
     def __init__(self,function):
@@ -32,22 +31,20 @@ class Infix:
     
     
 """
-La Formule est un type qui utilise des paramètres optionnels pour créer différentes instances (variables ou formules). 
-Si vous créez une instance en utilisant une chaîne de caractères comme paramètre, 
-l'instance sera une variable portant le nom spécifié dans le paramètre. En revanche, si vous créez l'instance en utilisant un autre type de paramètre.
-
-
+formula is a type using the optional parameters to make different instance(variable or formula)
+if you make an instance using a string as parameter, the instance will be a variable using the parameter for its name
+while if you make the instance using anouther 
 """
         
 class formula :
         affect=Infix(lambda x,y : x.__affect(y))
         def __init__(self,f=None,connector=None):
             self._table=[]
+            self.is_neg=False
             if isinstance(f,str):
                 self._table.append(f)
                 self.name=f
                 self.is_variable=True
-                self.is_neg=False
                 self.not_initiated=False
             elif isinstance(f,formula):
                 self._table.append(f)
@@ -58,13 +55,7 @@ class formula :
                 self.is_variable=False
                 self.not_initiated=True
                 self._connector=connector
-                     
-        """
-        - La formule add_subf est utilisée pour ajouter un nouvel élément à la table de la formule courante. 
-              Si la formule courante est une variable, le nouvel élément sera ajouté après la variable.
-              Si la formule courante n'est pas une variable, le nouvel élément sera inséré à la position d'indice dans la table.
-        """
-       
+
         def add_subf(self,elem,index,connector=AND):
             if(self.is_variable and not self.not_initiated):
                 self._table.append(elem)
@@ -76,11 +67,7 @@ class formula :
             else :
                 self._table.append(elem)
                 
-        """        
-         - La formule remove_subf est utilisée pour supprimer un élément de la table de la formule courante. 
-              Si la formule courante est une variable ou non initialisée, elle lèvera une exception. 
-              Si l'élément à supprimer n'est pas dans la table, cette méthode renverra None, sinon elle renverra l'élément supprimé.
-        """
+                
         def remove_subf(self,elem):
             if(self.is_variable or self.not_initiated):
                 raise ValueError(f"{self} is a variable and has no attribute table\n")
@@ -108,16 +95,14 @@ class formula :
                 raise ValueError(f"{self} is not a variable")
             self.Value=Value
         
-        """
-        - refr(self): Cette méthode est utilisée pour mettre à jour l'objet formule. Si l'objet est une variable ou que la table n'a pas été initialisée (not_initiated=True), 
-              la méthode ne effectuera aucune opération. Sinon, la méthode itérera sur chaque élément de la table, et si l'élément n'est pas une variable, 
-              la méthode mettra à jour l'élément en regroupant à nouveau les éléments enfants s'ils ont la même connexion logique.
-        """
+       
         def refr(self):
             if(not self.is_variable and not self.not_initiated):
                 for f in list(self._table):
                     i=self._table.index(f)
-                    if(not f.is_variable):
+                    if(f.not_initiated):
+                        self._table.remove(f)
+                    elif(not f.is_variable):
                         f.refr()
                         if f.get_connector()==self.get_connector():
                             self.remove_subf(f)
@@ -138,9 +123,104 @@ class formula :
                 return f
             elif(f.not_initiated):
                 return self
-            res=formula(self,connector= OR)
-            res.add_subf(f,1,connector=OR)
-            res.refr()
+            elif(f.is_variable):
+                if(self.is_variable) :
+                        if(f.name==self.name):
+                            if( f.is_neg == (not self.is_neg)):
+                                return formula()
+                            else:
+                                res=formula()
+                                res.not_initiated=False
+                                res.is_variable=True
+                                res.name=self.name
+                                return res
+                        else:
+                            res=formula(self,connector=OR)
+                            res._table.append(f)
+                elif(self._connector==OR):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table=list(self._table)
+                    res._table.append(f)
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    for s in self._table:
+                        res._table.append(s+f)
+                    
+            elif(self.is_variable):
+                if(f.is_variable) :
+                        if(f.name==self.name):
+                            if( f.is_neg == (not self.is_neg)):
+                                return formula()
+                            else:
+                                res=formula()
+                                res.not_initiated=False
+                                res.is_variable=True
+                                res.name=self.name
+                                return res
+                        else:
+                            res=formula(self,connector=OR)
+                            res._table.append(f)
+                elif(f._connector==OR):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.append(f)
+                    res._table.extend(list(self._table))
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    for s in f._table:
+                        res._table.append(s+self)
+                    res.env_val()
+            elif(self._connector==OR):
+                if(f._connector==OR):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.extend(self.table)
+                    res._table.extend(f._table)
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    for s in f._table:
+                        res._table.append(s+self)
+                    res.env_val()
+            elif(f._connector==OR):
+                if(self._connector==OR):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.extend(self._table)
+                    res._table.extend(f._table)
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    for s in self._table:
+                        res._table.append(s+f)
+            else:
+                res=formula()
+                res._connector=AND
+                res.not_initiated=False
+                res.is_variable=False
+                for s1 in self._table:
+                    for s2 in f._table:
+                        res._table.append(s1+s2)
+                res.env_val()
             return res
         
         
@@ -149,10 +229,96 @@ class formula :
                 return f
             elif(f.not_initiated):
                 return self
-            res=formula(self,connector= AND)
-            res.add_subf(f,1,connector= AND)
-            res.refr()
+            elif(f.is_variable):
+                if(self.is_variable) :
+                        if(f.name==self.name):
+                            if( f.is_neg == (self.is_neg)):
+                                res=formula()
+                                res.not_initiated=False
+                                res.is_variable=True
+                                res.name=self.name
+                        else:
+                            res=formula(self,connector=AND)
+                            res._table.append(f)
+                elif(self._connector==OR):
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.append(self)
+                    res._table.append(f)
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table=list(self._table)
+                    res._table.append(f)
+                    
+            elif(self.is_variable):
+                if(f.is_variable) :
+                        if(f.name==self.name):
+                            if( f.is_neg == (self.is_neg)):
+                                res=formula()
+                                res.not_initiated=False
+                                res.is_variable=True
+                                res.name=self.name
+                        else:
+                            res=formula(self,connector=AND)
+                            res._table.append(f)
+                elif(f._connector==OR):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.append(self)
+                    res._table.append(f)
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table=list(f._table)
+                    res._table.append(self)
+            elif(self._connector==AND):
+                if(f._connector==AND):
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.extend(list(self._table))
+                    res._table.extend(list(f._table))
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table=list(self._table)
+                    res._table.append(f)
+            elif(f._connector==AND):
+                if(self._connector==AND):
+                    res=formula()
+                    res._connector=OR
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table.extend(list(self._table))
+                    res._table.extend(list(f._table))
+                else:
+                    res=formula()
+                    res._connector=AND
+                    res.not_initiated=False
+                    res.is_variable=False
+                    res._table=list(f._table)
+                    res.table.append(self)
+            else:
+                res=formula()
+                res._connector=AND
+                res.not_initiated=False
+                res.is_variable=False
+                res._table.append(self)
+                res._table.append(f)
             return res
+        
         
         def __neg__(self):
             res=formula()
@@ -173,13 +339,6 @@ class formula :
                 else:
                     res._connector=AND
             return res
-        """
-        - dev(self) est une méthode récursive qui effectue l'algorithme d'expansion de Shannon pour l'objet formule. 
-              Elle divise la formule en une représentation somme de produits (SOP) en appliquant récursivement la loi distributive. Si l'objet formule a un connecteur OR, 
-              elle applique la loi distributive pour le convertir en une représentation produit de sommes (POS). Si elle a un connecteur AND, 
-              elle appelle la méthode refr() et applique récursivement la méthode dev() à ses sous-formules.
-
-        """
         def dev(self):
             if(self.is_variable or self.not_initiated):
                 pass
@@ -213,17 +372,18 @@ class formula :
                     return True
             return False
         def env_val(self):
-            if(self.get_connector()==AND):
-                for sf in list(self._table):
-                    if(sf.get_connector()==OR):
-                        valide=False
-                        for var in sf._table:
-                            if(formula.not_var_in_list(var,sf._table)):
-                                valide=True
-                                break
-                        if(valide):
-                            self._table.remove(sf)
-        
+            if(not self.is_variable):
+                if(self.get_connector()==AND):
+                    for sf in list(self._table):
+                        if(not sf.is_variable):
+                            if(sf.get_connector()==OR):
+                                valide=False
+                                for var in sf._table:
+                                    if(formula.not_var_in_list(var,sf._table)):
+                                        valide=True
+                                        break
+                                if(valide):
+                                    self._table.remove(sf)
         def __str__(self):
             if(self.is_variable):
                 if(hasattr(self, 'value')):
