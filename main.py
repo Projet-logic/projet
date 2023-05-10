@@ -10,7 +10,6 @@ from Game import Game
 from formula_d import formula,AND,OR
 import pycosat as sat
 
-
 #------------------------------SAVE DIMACS--------------------------------------
 def dimacs(formule, filename):
     """
@@ -121,9 +120,12 @@ def main():
         f.env_val()
         print(f"formula = {f}")
         variable_map=create_num(g)
+        #print(variable_map)
         dimacs(f, "sat.cnf")
         final_list = read_dimacs_file("sat.cnf")
+        #print(final_list), this line is for testing
         final_list=convert_variables_to_numbers(final_list, variable_map)
+        #print(final_list), this line is for testing
         satSolution(final_list,variable_map)    
         return 0
         
