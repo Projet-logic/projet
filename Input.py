@@ -45,10 +45,10 @@ class Interface:
     def __init__(self, master):
         self.master = master
         self.master.title("Hashiwokakero Solver")
-        root.geometry("800x260+100+100")
+        root.geometry("810x260+100+100")
         root.config(bg="#C2D4B4")
 
-        self.hello_label = tk.Label(self.master, text="Welcome to our Game", font=("Lucida Bright", 15))
+        self.hello_label = tk.Label(self.master, text="Welcome to Mr.Astor's class", font=("Lucida Bright", 15))
         self.hello_label.grid(row=0, column=0, padx=5, pady=5)
         self.hello_label.config(bg="#C2D4B4")
 
